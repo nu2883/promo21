@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <title>promo21</title>
+  </head>
+  <body>
+<div id="app">
+<!-- {{HasilCari}} -->
+    <div v-if="cari.length < 1" class="card mb-3" v-for="item in datatoko">
+        <div class="card-body bg-primary">
+            <h5 class="card-title ">{{item.nama_toko}}</h5>
+        </div>
+        <img :src="item.img_katalog" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">{{item.tgl_promo}}</p>
+          <p class="card-text"><small class="text-muted">Jumat - Minggu</small></p>
+        </div>
+      </div>
+    
+      <div class="container" >
+          <div class="row">
+              <div class="col-4" v-for="item in HasilCari"  @click="dipilih = item" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <b>  <p class="card-text">{{item.nama_toko}}</p></b>
+                  <div class="card" style="width: 100%;" >
+                      <img :src="item.img_katalog" class="card-img-top img-fluid" alt="..." style="width: 100%;">
+                      <div class="card-body">
+                        <p class="card-text">{{item.tgl_promo}}</p>
+                        <!-- <p class="card-text">{{item.desc}}</p> -->
+                        <div v-html="matchName(item.desc)"></div>
+                        <!-- Button trigger modal -->
+                        
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    <!-- Modal -->
+    <div v-if="cari.length > 1" class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img :src="dipilih.img_katalog" class="card-img-top" alt="...">
+                </div>
+                
+                    <span>{{dipilih.desc}}</span>
+                
+                <button class="btn btn-success" style = "position:absolute;bottom:150px;right:15px;margin:0;padding:5px 3px;">
+                    rekam
+                </button>
+            <div class="modal-footer">
+                <div class="row g-3">
+                    <div class="col-auto">
+                        <!-- <h5>SIMPAN DI RENCANA BELANJA</h5> -->
+                    </div>
+                    <div class="col-auto">
+                      <b><input  v-model="dipilih.nama_toko" disabled type="text" readonly class="form-control-plaintext" id="staticEmail2" ></b>
+                    </div>
+                    <div class="col-auto">
+                        <b><input v-model="dipilih.tgl_promo" disabled type="text" readonly class="form-control-plaintext" id="staticEmail2" ></b>
+                      </div>
+                    <div class="col-auto">
+                      <input v-model = "nama_barang" autofocus type="text" class="form-control" id="inputPassword2" placeholder="nama barang">
+                    </div>
+                    <div class="col-auto">
+                        <input v-model = "harga_barang"  type="text" class="form-control" id="inputPassword2" placeholder="harga">
+                      </div>
+                    <div class="col-auto">
+                      <button @click="simpan"  class="btn btn-primary mb-3">Simpan</button>
+                    </div>
+                </div>
+                
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <br><br><br><br>
+
+
+    <nav class="navbar fixed-bottom navbar-light bg-light ">
+        <div class="container-fluid">
+            <a class="navbar-brand">Promo 21</a>
+            <form class="d-flex">
+              <input v-model="cari" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+    </nav>
+
+</div>
+
+
+       <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+    <script>
+        var app = new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                message: 'Hello Vue!',
+            cari:'',
+            datatoko:[
+                // {'nama_toko':'Superindo', 'img_katalog':'https://www.superindo.co.id/images/promosi-khusus/thtjw642WS.jpg', 'tgl_promo':'8-11 September 2021','desc':'bimoli(10000), miwon(10000), fruti(4000)'},
+                // {'nama_toko':'Hypermart', 'img_katalog':'https://www.hypermart.co.id/wp-content/uploads/2020/02/Kompas-8-okt-21_1-01.jpg', 'tgl_promo':'8-11 September 2021','desc':'bimoli(10000), miwon(5000), sasa(4000)'},
+                // {'nama_toko':'Hypermart', 'img_katalog':'https://www.hypermart.co.id/wp-content/uploads/2020/02/Kompas-8-okt-21_2-01.jpg', 'tgl_promo':'8-11 September 2021','desc':'bimoli(10000), miwon(5000), ajinomoto(4000)'},
+                // {'nama_toko':'Hypermart', 'img_katalog':'https://www.hypermart.co.id/wp-content/uploads/2020/02/Kompas-8-okt-21_1-01.jpg', 'tgl_promo':'8-11 September 2021','desc':''},
+                // {'nama_toko':'Hypermart', 'img_katalog':'https://www.hypermart.co.id/wp-content/uploads/2020/02/Kompas-8-okt-21_2-01.jpg', 'tgl_promo':'8-11 September 2021','desc':''},
+                // {'nama_toko':'Hypermart', 'img_katalog':'https://www.hypermart.co.id/wp-content/uploads/2020/02/Kompas-8-okt-21_1-01.jpg', 'tgl_promo':'8-11 September 2021','desc':''},
+                // {'nama_toko':'Alfamidi', 'img_katalog':'https://alfamidiku.com/medias/promo/product-1633045062-10.jpg', 'tgl_promo':'8-11 September 2021','desc':''},
+            ],
+            dipilih:'',
+            daftar_belanja : [],
+            nama_barang :'',
+            harga_barang :'',
+
+
+            }
+        },
+    computed: {
+        HasilCari: function(){
+            return this.datatoko.filter((blog) => {
+                let aaa =  blog.nama_toko.toLowerCase().match(this.cari.toLowerCase()) ;
+                let bbb =  blog.desc.toLowerCase().match(this.cari.toLowerCase()) ;
+  
+
+                // let bbb = this.datatoko.filter((item) => {
+                //         return item.desc.indexOf(this.cari) >= 0;
+                //     });
+                // return this.blog.desc.filter((xx) => {
+                //         return xx.nama_brg.toLowerCase().match(this.cari.toLowerCase()) 
+        
+                //     });
+                
+                return  aaa || bbb
+                // blog.desc.filter((xx)=>{
+                //     return xx.nama_brg.toLowerCase().match(this.cari.toLowerCase())
+                // }
+
+                // );
+            });
+
+
+
+
+        
+            return aaa 
+        }
+    },
+    created(){
+        // this.dataSoal = this.kalimat;
+        // gscript
+          // google.script.run.diakses();
+        
+        this.ambilData();
+
+        // alert('tes');
+
+
+
+    },
+        methods:{
+            ambilData(){
+                //   alert('ambil data');
+                this.datatoko = [];
+
+                var url ="https://script.google.com/macros/s/AKfycbzTAtI4K7Yrctg9e5dsU5CVpd8svXX1dcgb9jzbDUJBC171GIWPGSizmHLipVym2Xia/exec?action=read&table=data";
+
+                $.getJSON(url, function (json) {
+                // console.log(json.data);
+                app.dataTambahan = json.data;
+                app.datatoko = app.dataTambahan;
+                // app.soal = app.soal.concat(data1);
+                });
+
+                // alert('selesai ambil data');
+
+            },
+            simpan(){
+                if(this.nama_barang){
+                    vm = this;
+                    vm.daftar_belanja.push({"nama_toko": vm.dipilih.nama_toko, "nama_barang" : vm.nama_barang, "harga_barang" : vm.harga_barang });
+
+                    var vNamaToko = this.dipilih.nama_toko.toString();
+                    var vTglPromo = this.dipilih.tgl_promo.toString();
+                    var vNamaBarang = this.nama_barang.toString();
+                    var vhargabarang = this.harga_barang.toString();
+                    var lin = `https://script.google.com/macros/s/AKfycbzTAtI4K7Yrctg9e5dsU5CVpd8svXX1dcgb9jzbDUJBC171GIWPGSizmHLipVym2Xia/exec?action=insert&table=detail&data={"nama_toko":"'${vNamaToko}","tgl_promo":"'${vTglPromo}","nama_barang":"'${vNamaBarang}","harga_barang":"${vhargabarang}"}`;
+                    $.ajax({
+                    type: 'GET',
+                    url: lin,
+                    crossDomain: true,
+                    dataType: 'jsonp',
+                    dataType: "text",
+                    success: function(resultData) { 
+                        alert("Berhasil Simpan")
+                        app.nama_barang = '';
+                        app.harga_barang = '';
+                        
+                        
+                    }
+                    });
+
+
+
+
+
+
+                }else{
+                    alert("nama barang harus diisi.")
+                }
+            },
+
+
+
+            matchName(current) {
+                let reggie = new RegExp(this.cari, "ig");
+                let found = current.search(reggie) !== -1;
+                return !found ? current : current.replace(reggie, '<span style="color: red;">' + this.cari + '</span>');
+                }
+
+
+
+
+        },
+
+        })
+    </script>
+  </body>
+</html>
